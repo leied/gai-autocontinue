@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Google AI Search Auto-Continue",
+  "version": "1.0.0",
+  "description": "Automatically confirms Google's 'Continue with this search?' prompt.",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "Google AI Search Auto-Continue",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://google.com/*",
+        "https://*.google.com/*"
+      ],
+      "js": [
+        "rules.js",
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

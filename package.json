@@ -1,0 +1,9 @@
+{
+  "name": "gai-autocontinue",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Automatically confirm Google's AI search warning prompt.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

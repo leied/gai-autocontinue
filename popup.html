@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google AI Search Auto-Continue</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <h1>AI Search Auto-Continue</h1>
+      <label class="setting">
+        <span>
+          <strong>Automatically continue</strong>
+          <small>Only on Google AI Mode URLs (<code>udm=50</code>)</small>
+        </span>
+        <input id="enabled" type="checkbox" aria-label="Automatically continue" />
+      </label>
+      <p id="status" role="status"></p>
+      <p class="count">Prompts handled: <span id="click-count">0</span></p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
