@@ -21,7 +21,8 @@ Click the extension's toolbar icon to pause or resume it. It is enabled by defau
 
 ## Privacy and scope
 
-- Runs only on `google.com` and its subdomains, and clicks only when `udm=50` is set.
+- Runs only on `google.com` and `www.google.com` — not on any other Google subdomain
+  (no Gmail, Docs, Drive) — and clicks only when `udm=50` is set.
 - Uses no network requests and collects no browsing or query data.
 - Stores only the enabled toggle, the number of prompts handled, and the last-click
   timestamp in local extension storage.

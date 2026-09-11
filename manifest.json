@@ -14,7 +14,7 @@
     {
       "matches": [
         "https://google.com/*",
-        "https://*.google.com/*"
+        "https://www.google.com/*"
       ],
       "js": [
         "rules.js",
