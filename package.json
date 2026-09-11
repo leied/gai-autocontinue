@@ -4,6 +4,10 @@
   "private": true,
   "description": "Automatically confirm Google's AI search warning prompt.",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "lint:firefox": "npx --yes web-ext@10.6.0 lint --source-dir . --self-hosted",
+    "start:firefox": "npx --yes web-ext@10.6.0 run --source-dir .",
+    "start:android": "npx --yes web-ext@10.6.0 run --source-dir . --target firefox-android",
+    "build:firefox": "npx --yes web-ext@10.6.0 build --source-dir . --overwrite-dest --ignore-files \"test/**\" package.json"
   }
 }

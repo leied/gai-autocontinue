@@ -1,5 +1,8 @@
 "use strict";
 
+// Firefox exposes the promise-based `browser` namespace; Chromium only has `chrome`.
+const api = globalThis.browser ?? globalThis.chrome;
+
 const enabledInput = document.querySelector("#enabled");
 const status = document.querySelector("#status");
 const clickCount = document.querySelector("#click-count");
@@ -10,7 +13,7 @@ function renderStatus(enabled) {
     : "Paused — prompts will be left alone.";
 }
 
-chrome.storage.local
+api.storage.local
   .get({ enabled: true, clickCount: 0 })
   .then((settings) => {
     enabledInput.checked = settings.enabled;
@@ -20,6 +23,6 @@ chrome.storage.local
 
 enabledInput.addEventListener("change", async () => {
   const enabled = enabledInput.checked;
-  await chrome.storage.local.set({ enabled });
+  await api.storage.local.set({ enabled });
   renderStatus(enabled);
 });

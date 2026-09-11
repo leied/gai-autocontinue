@@ -1,6 +1,8 @@
 (() => {
   "use strict";
 
+  // Firefox exposes the promise-based `browser` namespace; Chromium only has `chrome`.
+  const api = globalThis.browser ?? globalThis.chrome;
   const rules = globalThis.GaiAutoContinueRules;
   const CLICKABLE_SELECTOR = "button, [role='button']";
   const MAX_ANCESTOR_DEPTH = 10;
@@ -83,8 +85,8 @@
 
   async function recordClick() {
     try {
-      const { clickCount = 0 } = await chrome.storage.local.get("clickCount");
-      await chrome.storage.local.set({
+      const { clickCount = 0 } = await api.storage.local.get("clickCount");
+      await api.storage.local.set({
         clickCount: clickCount + 1,
         lastClickedAt: Date.now()
       });
@@ -164,7 +166,7 @@
     scheduleScan();
   }
 
-  chrome.storage.onChanged.addListener((changes, areaName) => {
+  api.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local" && changes.enabled) {
       enabled = changes.enabled.newValue !== false;
       if (enabled) {
@@ -175,7 +177,7 @@
 
   async function initialize() {
     try {
-      const settings = await chrome.storage.local.get({ enabled: true });
+      const settings = await api.storage.local.get({ enabled: true });
       enabled = settings.enabled;
     } catch {
       enabled = true;

@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+# The workflow only reads the tree; nothing here needs write access or secrets.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No install step: the extension and its tests have no dependencies.
+      - name: Unit tests
+        run: npm test
+
+      # Only rules.js is unit tested, so a parse check is the sole automated
+      # guard against a typo in the files that actually touch the page.
+      - name: Syntax check
+        run: node --check content.js && node --check popup.js && node --check rules.js
+
+      - name: Manifest is valid JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8'))"
+
+  lint-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Mozilla's add-on linter. Catches manifest errors that only surface at
+      # AMO submission time. Pinned in package.json rather than floating.
+      - name: web-ext lint
+        run: npm run lint:firefox
